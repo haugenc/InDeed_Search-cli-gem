@@ -39,7 +39,8 @@ class IndeedSearch::Job
       new_job.location = job.search("formattedLocation").text
       new_job.posted_relative = job.search("formattedRelativeTime").text
       new_job.url = job.search("url").text
-      new_job.description = job.search("snippet").text
+      #description = Nokogiri::HTML(open(new_job.url)).search("#job_summary").text
+      new_job.description = job.search('snippet').text
       self.all << new_job
     end
   end

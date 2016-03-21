@@ -23,12 +23,13 @@ class IndeedSearch::Cli
     list_jobs
     while input != "exit"
       puts "\nEnter the number of the job you would like more info on"
-      puts "[job #, new, list, exit]:"
+      puts "or enter 'open' # to open the url in your web browser"
+      puts "[job #, open [job_number], new, list, exit]:"
       input = gets.chomp.downcase
       case
       when input.to_i > 0 && input.to_i <= @jobs.length
         job = @jobs[input.to_i - 1]
-        puts "\nJob Title:\t#{job.title}\nCompany:\t#{job.company}\nDescription:\t#{job.description}\nPosted:\t\t#{job.posted_relative}"
+        puts "\nJob Title:\t#{job.title}\nCompany:\t#{job.company}\nDescription:\n\n#{job.description}\n\nPosted:\t\t#{job.posted_relative}"
       when input == "exit"
       when input == "list"
         list_jobs
