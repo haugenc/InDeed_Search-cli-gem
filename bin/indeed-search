@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "Indeed_Search"
+
+IndeedSearch::Cli.new.call
