@@ -1,3 +1,5 @@
+require "launchy"
+
 class IndeedSearch::Cli
   attr_accessor :zip, :search_terms, :jobs
   def call
@@ -17,20 +19,24 @@ class IndeedSearch::Cli
     input = ""
     get_zip
     get_search
+    get_jobs
     list_jobs
     while input != "exit"
       puts "\nEnter the number of the job you would like more info on"
-      puts "[1-5, new, list, exit]:"
+      puts "[job #, new, list, exit]:"
       input = gets.chomp.downcase
       case
-      when input.to_i > 0
+      when input.to_i > 0 && input.to_i <= @jobs.length
         job = @jobs[input.to_i - 1]
         puts "\nJob Title:\t#{job.title}\nCompany:\t#{job.company}\nDescription:\t#{job.description}\nPosted:\t\t#{job.posted_relative}"
-      when input.match(/exit/)
-      when input.match(/list/)
+      when input == "exit"
+      when input == "list"
         list_jobs
-      when input.match(/new/)
+      when input == "new"
+        clear_jobs
         input = menu
+      when input.match(/^open /) && input.split[1].to_i > 0 && input.split[1].to_i <= @jobs.length
+        Launchy.open(@jobs[input.split[1].to_i - 1].url)
       else
         puts "Invalid Selection. Please make a valid selection!"
       end
@@ -56,10 +62,14 @@ class IndeedSearch::Cli
 
   def list_jobs
     @jobs = IndeedSearch::Job.all
-    puts "\nResults:"
+    puts "\n#{@jobs.length == 10 ? "Top 10" : @jobs.length} Results:"
     @jobs.each.with_index(1) do |job, i|
       puts "#{i}. #{job.title} - #{job.company} - #{job.location}"
     end
+  end
+  def clear_jobs
+    @jobs = nil
+    IndeedSearch::Job.clear_all
   end
 
   def goodbye
