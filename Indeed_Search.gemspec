@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Chris Haugen"]
   spec.email         = ["haugenc@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = "This gem searches for jobs based off user entry"
+  #spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.homepage      = "https://github.com/haugenc/Indeed_Search-cli-gem"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
